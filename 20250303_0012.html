@@ -4,11 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ecrystal123的博客-Test</title>
+    </head>
+    <body>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <div id="markdown-content"></div>
 <script>
-  var markdownText = "# Hello, Markdown!\nThis is **bold** text.";
-  document.getElementById('markdown-content').innerHTML = marked(markdownText);
+  if (typeof marked !== 'undefined') {
+            var markdownText = "# Hello, Markdown!\nThis is **bold** text.\n# 你好！Markdown！\n这是*斜体*文本";
+            document.getElementById('markdown-content').innerHTML = marked.parse(markdownText);
+        } else {
+            console.error("Marked.js 未加载成功！");
+        }
 </script>
-</head>
+</body>
 </html>
