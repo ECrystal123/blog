@@ -7,25 +7,25 @@
     <style>
         /* 默认浅色模式 */
         body {
-            background-color: #ffffff;
-            color: #000000;
+            background-color: white;
+            color: black;
             transition: background-color 0.3s, color 0.3s;
         }
 
         /* 黑暗模式 */
         body.dark-mode {
             background-color: #121212;
-            color: #ffffff;
+            color: #e0e0e0;
         }
 
         /* 切换按钮样式 */
         #dark-mode-toggle {
             position: fixed;
-            top: 10px;
-            left: 10px;
+            top: 20px;
+            right: 20px;
             padding: 10px;
             background-color: #007bff;
-            color: #ffffff;
+            color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -33,8 +33,8 @@
 
         /* 黑暗模式下的按钮样式 */
         body.dark-mode #dark-mode-toggle {
-            background-color: #ffffff;
-            color: #121212;
+            background-color: #333;
+            color: #e0e0e0;
         }
     </style>
 </head>
