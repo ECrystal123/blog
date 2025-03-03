@@ -10,7 +10,7 @@
     <div id="markdown-content"></div>
 <script>
   if (typeof marked !== 'undefined') {
-            var markdownText = "# Hello, Markdown![Red]{"style="color: red""}\nThis is **bold** text.\n# 你好！Markdown！\n这是*斜体*文本";
+            var markdownText = "# Hello, Markdown!\nThis is **bold** text.\n# 你好！Markdown！\n这是*斜体*文本";
             document.getElementById('markdown-content').innerHTML = marked.parse(markdownText);
         } else {
             console.error("Marked.js 未加载成功！");
