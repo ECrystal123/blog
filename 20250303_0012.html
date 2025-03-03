@@ -15,6 +15,10 @@
     <div id="post-time"></div>
 
     <script>
+        // 文章发布时间
+        const postDate = new Date('2025-03-03T22:12:21'); // 设置文章发布时间
+        const postTimeElement = document.getElementById('post-time');
+
         // 格式化时间函数
         function formatDate(date) {
             const year = date.getFullYear();
@@ -26,9 +30,7 @@
             return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
         }
 
-        // 自动添加文章发布时间
-        const postTimeElement = document.getElementById('post-time');
-        const postDate = new Date(); // 获取当前时间
+        // 显示文章发布时间
         postTimeElement.innerHTML = `发布时间：${formatDate(postDate)}`;
 
         // 渲染 Markdown 内容
