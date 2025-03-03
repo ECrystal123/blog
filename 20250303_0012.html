@@ -4,17 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ecrystal123的博客-Test</title>
-    </head>
-    <body>
+</head>
+<body>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <div id="markdown-content"></div>
-<script>
-  if (typeof marked !== 'undefined') {
+    <script>
+        if (typeof marked !== 'undefined') {
             var markdownText = "# Hello, Markdown!\nThis is **bold** text.\n# 你好！Markdown！\n这是*斜体*文本";
             document.getElementById('markdown-content').innerHTML = marked.parse(markdownText);
         } else {
             console.error("Marked.js 未加载成功！");
         }
-</script>
+    </script>
+
+    <!-- 自定义评论表单 -->
+    <div id="comments">
+        <h3>评论区</h3>
+        <form id="comment-form">
+            <label for="name">昵称：</label>
+            <input type="text" id="name" name="name" required><br><br>
+            <label for="comment">评论：</label><br>
+            <textarea id="comment" name="comment" rows="4" cols="50" required></textarea><br><br>
+            <button type="submit">提交评论</button>
+        </form>
+        <div id="comment-list"></div>
+    </div>
+
+    <script>
+        // 加载已有的评论
+        let comments = JSON.parse(localStorage.getItem('comments')) || [];
+        const commentList = document.getElementById('comment-list');
+
+        function renderComments() {
+            commentList.innerHTML = '';
+            comments.forEach(comment => {
+                const div = document.createElement('div');
+                div.innerHTML = `<strong>${comment.name}</strong>: ${comment.comment}`;
+                commentList.appendChild(div);
+            });
+        }
+
+        // 提交评论
+        document.getElementById('comment-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const comment = document.getElementById('comment').value;
+            comments.push({ name, comment });
+            localStorage.setItem('comments', JSON.stringify(comments));
+            renderComments();
+            document.getElementById('comment-form').reset();
+        });
+
+        // 初始化渲染
+        renderComments();
+    </script>
 </body>
 </html>
