@@ -4,8 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ecrystal123的博客-Test</title>
+    <style>
+        /* 默认浅色模式 */
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* 黑暗模式 */
+        body.dark-mode {
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        /* 切换按钮样式 */
+        #dark-mode-toggle {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            padding: 10px;
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* 黑暗模式下的按钮样式 */
+        body.dark-mode #dark-mode-toggle {
+            background-color: #ffffff;
+            color: #121212;
+        }
+    </style>
 </head>
 <body>
+    <!-- 黑暗模式切换按钮 -->
+    <button id="dark-mode-toggle">切换黑暗模式</button>
+
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     <!-- 文章内容 -->
@@ -92,6 +128,27 @@
 
         // 初始化渲染
         renderComments();
+    </script>
+
+    <script>
+        // 黑暗模式切换功能
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const body = document.body;
+
+        // 检查 localStorage 中的黑暗模式设置
+        const isDarkMode = localStorage.getItem('darkMode') === 'true';
+        if (isDarkMode) {
+            body.classList.add('dark-mode');
+            darkModeToggle.textContent = '切换浅色模式';
+        }
+
+        // 切换黑暗模式
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const isDarkMode = body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDarkMode);
+            darkModeToggle.textContent = isDarkMode ? '切换浅色模式' : '切换黑暗模式';
+        });
     </script>
 </body>
 </html>
