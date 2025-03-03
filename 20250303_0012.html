@@ -7,8 +7,33 @@
 </head>
 <body>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- 文章内容 -->
     <div id="markdown-content"></div>
+
+    <!-- 文章发布时间 -->
+    <div id="post-time"></div>
+
     <script>
+        // 文章发布时间
+        const postDate = new Date('2023-10-01T14:30:45'); // 设置文章发布时间
+        const postTimeElement = document.getElementById('post-time');
+
+        // 格式化时间函数
+        function formatDate(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0'); // 月份从 0 开始
+            const day = String(date.getDate()).padStart(2, '0');
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            const seconds = String(date.getSeconds()).padStart(2, '0');
+            return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+        }
+
+        // 显示文章发布时间
+        postTimeElement.innerHTML = `发布时间：${formatDate(postDate)}`;
+
+        // 渲染 Markdown 内容
         if (typeof marked !== 'undefined') {
             var markdownText = "# Hello, Markdown!\nThis is **bold** text.\n# 你好！Markdown！\n这是*斜体*文本";
             document.getElementById('markdown-content').innerHTML = marked.parse(markdownText);
@@ -35,11 +60,16 @@
         let comments = JSON.parse(localStorage.getItem('comments')) || [];
         const commentList = document.getElementById('comment-list');
 
+        // 渲染评论
         function renderComments() {
             commentList.innerHTML = '';
             comments.forEach(comment => {
                 const div = document.createElement('div');
-                div.innerHTML = `<strong>${comment.name}</strong>: ${comment.comment}`;
+                div.innerHTML = `
+                    <strong>${comment.name}</strong> (${comment.time}):<br>
+                    ${comment.comment}
+                    <hr>
+                `;
                 commentList.appendChild(div);
             });
         }
@@ -49,7 +79,8 @@
             e.preventDefault();
             const name = document.getElementById('name').value;
             const comment = document.getElementById('comment').value;
-            comments.push({ name, comment });
+            const time = formatDate(new Date()); // 获取当前时间
+            comments.push({ name, comment, time }); // 保存评论和时间
             localStorage.setItem('comments', JSON.stringify(comments));
             renderComments();
             document.getElementById('comment-form').reset();
