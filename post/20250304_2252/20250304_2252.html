@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Markdown 渲染 + 黑暗模式</title>
+  <!-- 引入 marked.js -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    /* 默认浅色模式 */
+    body {
+      background-color: #ffffff;
+      color: #000000;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* 黑暗模式 */
+    body.dark-mode {
+      background-color: #1e1e1e;
+      color: #ffffff;
+    }
+
+    /* 切换按钮样式 */
+    #toggle-dark-mode {
+      position: fixed;
+      top: 10px;
+      right: 10px; /* 改为右上角 */
+      padding: 10px;
+      background-color: #007bff;
+      color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    /* 内容容器样式 */
+    #markdown-content {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <!-- 黑暗模式切换按钮 -->
+  <button id="toggle-dark-mode">切换黑暗模式</button>
+
+  <!-- 容器用于显示转换后的内容 -->
+  <div id="markdown-content"></div>
+
+  <script>
+    // 加载外部 Markdown 文件
+    fetch('20250304_2252.md') // 替换为你的 Markdown 文件路径
+      .then(response => response.text()) // 获取文件内容
+      .then(text => {
+        // 将 Markdown 转换为 HTML
+        const htmlContent = marked.parse(text);
+        // 将转换后的 HTML 插入到页面中
+        document.getElementById('markdown-content').innerHTML = htmlContent;
+      })
+      .catch(error => console.error('加载 Markdown 文件失败:', error));
+
+    // 黑暗模式切换逻辑
+    const toggleButton = document.getElementById('toggle-dark-mode');
+    toggleButton.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      // 更新按钮文本
+      if (document.body.classList.contains('dark-mode')) {
+        toggleButton.textContent = '切换浅色模式';
+      } else {
+        toggleButton.textContent = '切换黑暗模式';
+      }
+    });
+  </script>
+</body>
+</html>
