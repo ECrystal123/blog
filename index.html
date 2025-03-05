@@ -51,6 +51,7 @@
     }
 
 </style>
+<button id="toggle-dark-mode">切换黑暗模式</button>
 <h1>Ecrystal123的博客</h1>
 <h2>文章</h2>
 <hr>
@@ -60,4 +61,17 @@
         <a href="https://icp.gov.moe/?keyword=20256662" target="_blank">萌ICP备20256662号</a><br/><br/>
         <img src="https://badges.toozhao.com/badges/01JNBTH72V09A01W7SCFS9NDV5/blue.svg" />
     </footer>
+    
+<script>   // 黑暗模式切换逻辑
+    const toggleButton = document.getElementById('toggle-dark-mode');
+    toggleButton.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      // 更新按钮文本
+      if (document.body.classList.contains('dark-mode')) {
+        toggleButton.textContent = '切换浅色模式';
+      } else {
+        toggleButton.textContent = '切换黑暗模式';
+      }
+    });
+    </script>
 </html>
