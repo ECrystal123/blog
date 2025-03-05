@@ -61,26 +61,32 @@
       })
       .catch(error => console.error('加载 Markdown 文件失败:', error));
 
-    // 黑暗模式切换逻辑
+    // 获取切换按钮和 body 元素
     const toggleButton = document.getElementById('toggle-dark-mode');
+    const body = document.body;
+
+    // 从 localStorage 中读取用户设置
+    const savedMode = localStorage.getItem('dark-mode');
+    if (savedMode === 'enabled') {
+      body.classList.add('dark-mode');
+      toggleButton.textContent = '切换浅色模式';
+    } else {
+      body.classList.remove('dark-mode');
+      toggleButton.textContent = '切换黑暗模式';
+    }
+
+    // 黑暗模式切换逻辑
     toggleButton.addEventListener('click', () => {
-      document.body.classList.toggle('dark-mode');
-      // 更新按钮文本
-      if (document.body.classList.contains('dark-mode')) {
+      body.classList.toggle('dark-mode');
+      // 更新按钮文本和 localStorage
+      if (body.classList.contains('dark-mode')) {
         toggleButton.textContent = '切换浅色模式';
+        localStorage.setItem('dark-mode', 'enabled');
       } else {
         toggleButton.textContent = '切换黑暗模式';
+        localStorage.setItem('dark-mode', 'disabled');
       }
     });
   </script>
-  <div id="cusdis_thread"
-  data-host="https://cusdis.com"
-  data-app-id="d44b6a80-d84e-4305-9a3f-6b4e6b30864d"
-  data-page-id="{{ PAGE_ID }}"
-  data-page-url="{{ PAGE_URL }}"
-  data-page-title="{{ PAGE_TITLE }}"
-></div>
-<script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
-
 </body>
 </html>
