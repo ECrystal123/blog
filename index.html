@@ -62,15 +62,30 @@
         <img src="https://badges.toozhao.com/badges/01JNBTH72V09A01W7SCFS9NDV5/blue.svg" />
     </footer>
     
-<script>   // 黑暗模式切换逻辑
+<script>       // 获取切换按钮和 body 元素
     const toggleButton = document.getElementById('toggle-dark-mode');
+    const body = document.body;
+
+    // 从 localStorage 中读取用户设置
+    const savedMode = localStorage.getItem('dark-mode');
+    if (savedMode === 'enabled') {
+      body.classList.add('dark-mode');
+      toggleButton.textContent = '切换浅色模式';
+    } else {
+      body.classList.remove('dark-mode');
+      toggleButton.textContent = '切换黑暗模式';
+    }
+
+    // 黑暗模式切换逻辑
     toggleButton.addEventListener('click', () => {
-      document.body.classList.toggle('dark-mode');
-      // 更新按钮文本
-      if (document.body.classList.contains('dark-mode')) {
+      body.classList.toggle('dark-mode');
+      // 更新按钮文本和 localStorage
+      if (body.classList.contains('dark-mode')) {
         toggleButton.textContent = '切换浅色模式';
+        localStorage.setItem('dark-mode', 'enabled');
       } else {
         toggleButton.textContent = '切换黑暗模式';
+        localStorage.setItem('dark-mode', 'disabled');
       }
     });
     </script>
